@@ -466,8 +466,15 @@ function SentimentAnalysis() {
       >
         {loading ? "Analyzing..." : "Analyze"}
       </button>
-
-      <TooltipProvider>
+      <button
+        onClick={() => setDeepDiveMode(!deepDiveMode)}
+        className={`mt-4 ml-4 px-5 py-2 rounded font-semibold ${
+          deepDiveMode ? "bg-[#5f81b8]" : "bg-[#364153] hover:bg-[#5f81b8]"
+        }`}
+      >
+        {deepDiveMode ? "🔍 Stop Deep Dive" : "🔍 Activate Deep Dive"}
+      </button>
+      {/* <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
             <button
@@ -485,7 +492,7 @@ function SentimentAnalysis() {
             only if you’re ready to confront difficult truths.
           </TooltipContent>
         </Tooltip>
-      </TooltipProvider>
+      </TooltipProvider> */}
 
       {showResult && (
         <div className="mt-6 p-4 bg-gray-700 rounded-lg">
@@ -998,7 +1005,7 @@ function SentimentAnalysis() {
           )}
         </div>
       )}
-       <AboutModal />
+      <AboutModal />
     </div>
   );
 }
