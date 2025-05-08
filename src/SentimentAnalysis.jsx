@@ -299,7 +299,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
+import AboutModal from "@/components/AboutModal";
 function SentimentAnalysis() {
   const [text, setText] =
     useState(`Lately, I’ve been experiencing overwhelming pressure at work. My supervisor constantly criticizes my performance, making me feel like no matter how hard I try, it’s never good enough.
@@ -461,7 +461,7 @@ function SentimentAnalysis() {
         className={`px-5 py-2 rounded font-semibold ${
           loading
             ? "bg-gray-500 cursor-not-allowed"
-            : "bg-blue-600 hover:bg-blue-700"
+            : "bg-[#5f81b8] hover:bg-[#364153]"
         }`}
       >
         {loading ? "Analyzing..." : "Analyze"}
@@ -473,7 +473,7 @@ function SentimentAnalysis() {
             <button
               onClick={() => setDeepDiveMode(!deepDiveMode)}
               className={`mt-4 ml-4 px-5 py-2 rounded font-semibold ${
-                deepDiveMode ? "bg-gray-500" : "bg-green-600 hover:bg-green-700"
+                deepDiveMode ? "bg-[#5f81b8]" : "bg-[#364153] hover:bg-[#5f81b8]"
               }`}
             >
               {deepDiveMode ? "🔍 Stop Deep Dive" : "🔍 Activate Deep Dive"}
@@ -998,6 +998,7 @@ function SentimentAnalysis() {
           )}
         </div>
       )}
+       <AboutModal />
     </div>
   );
 }
