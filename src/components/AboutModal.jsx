@@ -1,146 +1,142 @@
-import { useState } from "react";
-import { Dialog } from "@headlessui/react";
-import { Button } from "@/components/ui/button";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment } from "react";
 
-export default function AboutModal() {
-  const [isOpen, setIsOpen] = useState(false);
-
+export default function AboutModal({ isOpen, onClose }) {
   return (
-    <>
-      <div className="fixed bottom-4 right-4 z-50">
-        <button onClick={() => setIsOpen(true)}     className="text-sm bg-[#364153] text-white hover:bg-blue-800 px-4 py-2 rounded-md transition"
+    <Transition appear show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-50" onClose={onClose}>
+        {/* Background overlay */}
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
         >
-        
-          About this page
-        </button>
-      </div>
+          <div className="fixed inset-0 bg-black/60" />
+        </Transition.Child>
 
-      <Dialog
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-        className="relative z-50"
-      >
-        <div className="fixed inset-0 bg-black/40" aria-hidden="true" />
-        <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="max-h-[80vh] overflow-y-auto mx-auto max-w-lg rounded-xl bg-blue-50 dark:bg-gray-900 p-6 shadow-xl">
-            <Dialog.Title className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-100">
-              About Reflexion
-            </Dialog.Title>
-            <Dialog.Description className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-              Reflexion: An AI-Powered Platform for Guided Emotional
-              Self-Reflection
-            </Dialog.Description>
-            <div className="space-y-4 text-sm text-gray-800 dark:text-gray-100">
-              <p>
-                <strong>Reflexion</strong> is a scalable, non-clinical digital
-                wellness platform that leverages artificial intelligence and
-                human-centered design to foster emotional self-awareness,
-                cognitive insight, and psychological resilience. It provides an
-                accessible interface for individuals seeking structured
-                reflection outside of traditional therapeutic contexts.
-              </p>
-              <p>
-                The project is part of a broader effort to expand equitable
-                access to emotionally supportive technologies—particularly for
-                underserved populations who lack consistent access to mental
-                health care. By combining reflective writing, emotion
-                classification, and AI-guided feedback, Reflexion aims to
-                promote emotional literacy as a foundational skill for personal
-                development and community well-being.
-              </p>
-              <p>
-                <strong>How it works:</strong>
-                <br />
-                1. Choose a topic for self-reflection (e.g., Identity,
-                Relationships, Career).
-                <br />
-                2. Describe your thoughts and feelings in natural language.
-                <br />
-                3. Use emotion tags, or allow the system to suggest
-                classifications.
-                <br />
-                4. Receive supportive, non-directive feedback and next-step
-                prompts.
-                <br />
-                5. Optionally download or revisit your session later for
-                tracking and insight.
-              </p>
+        {/* Centered modal panel */}
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-800 p-6 text-left shadow-xl transition-all">
+                <Dialog.Title className="text-lg font-medium leading-6 text-white">
+                  About This Project
+                </Dialog.Title>
 
-              <p>
-                ⚠️ <strong>Note:</strong>
-                The current implementation serves as a minimal viable prototype,
-                designed to demonstrate core functionality and user interaction
-                logic. This early version does not yet include topic selection,
-                emotion tagging, or session history tracking. Current
-                functionality focuses on:
-              </p>
-              <ul className="list-disc list-inside space-y-1 ml-4">
-                <li>Submission of a short free-text reflection</li>
-                <li>
-                  AI-powered multi-emotion classification with percentage
-                  breakdown
-                </li>
-                <li>Primary emotion highlight (dominant mood)</li>
-                <li>Radar chart visualization for emotional spread</li>
-                <li>
-                  Cognitive insight analysis based on input tone and themes
-                </li>
-                <li>Personalized suggestion and follow-up reflective prompt</li>
-              </ul>
+                <div className="mt-2 text-sm text-gray-300 space-y-4">
+                  <p className="text-red-300 font-bold">
+                    ⚠️ This is a demo version. The API is currently disabled due
+                    to inference cost constraints.
+                  </p>
 
-              <p>
-                A feature-rich version is currently under development, with
-                modules planned for longitudinal emotional analysis, cognitive
-                distortion detection, and behavioral insight modeling.
-              </p>
+                  <p>
+                    <strong>Reflexion</strong> is an early-stage,
+                    research-driven initiative that explores the use of
+                    generative AI to enhance psychological self-awareness and
+                    emotional literacy at scale. It integrates cognitive
+                    science, therapeutic principles, and human-centered design
+                    to support individuals in navigating stress, internalized
+                    beliefs, and systemic influence.
+                  </p>
 
-              <p>
-                If you're interested in the development of scalable, AI-enhanced
-                psychological tools, you can follow the project's updates and
-                contribute feedback through the following links:
-              </p>
-              <ul className="list-disc list-inside space-y-1">
-                <li>
-                  Project Landing Page:{" "}
-                  <a
-                    href="https://reflexionai.dev"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 underline"
+                  <p>
+                    This demo showcases one of Reflexion's core modules: an
+                    AI-guided emotional reflection tool with two distinct
+                    interaction modes:
+                    <ul className="list-disc pl-6 mt-1">
+                      <li>
+                        <strong>General Mode:</strong> Performs baseline
+                        sentiment analysis, offers tailored insights, and
+                        recommends actionable steps based on linguistic
+                        patterns.
+                      </li>
+                      <li>
+                        <strong>Deep Dive Mode:</strong> Facilitates layered
+                        psychological inquiry across four dimensions, drawing
+                        from theories in cognitive behavioral therapy (CBT),
+                        social conditioning, and value system re-alignment.
+                      </li>
+                    </ul>
+                  </p>
+
+                  <p>
+                    Each deep reflection session concludes with a{" "}
+                    <strong>Final Report</strong> summarizing key emotional
+                    markers, perceived stressors, cognitive distortions, and
+                    areas for long-term self-improvement.
+                  </p>
+
+                  <p className="text-yellow-300 italic">
+                    Reflexion is designed to be a socially impactful, scalable
+                    framework for augmenting emotional resilience—particularly
+                    in contexts where access to traditional mental health
+                    services is limited. Future releases will include mood
+                    timeline tracking, adaptive prompt logic, and expanded
+                    integrations with health and education systems.
+                  </p>
+
+                  <div className="mt-4 space-y-2">
+                    <p>
+                      {" "}
+                      <a
+                        href="https://www.reflexionai.dev/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-400 underline"
+                      >
+                        Project Landing Page
+                      </a>
+                    </p>
+                    <p>
+                      {" "}
+                      <a
+                        href="https://medium.com/@ainotfound404321"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-400 underline"
+                      >
+                        Technical Overview (Medium Article)
+                      </a>
+                    </p>
+                    <p>
+                      {" "}
+                      <a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSeKJnQFfbbqfaaEmm7tOH31qcc4Fj2fG436Afl3vF0EiJmmSA/viewform"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-400 underline"
+                      >
+                        Feedback & Use Case Questionnaire
+                      </a>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-4 text-right">
+                  <button
+                    className="bg-[#364152] hover:bg-gray-600 text-white px-4 py-2 rounded"
+                    onClick={onClose}
                   >
-                    reflexionai.dev
-                  </a>
-                </li>
-                <li>
-                  Technical & Development Updates:{" "}
-                  <a
-                    href="https://medium.com/@ainotfound404321"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 underline"
-                  >
-                    Medium Blog
-                  </a>
-                </li>
-                <li>
-                  Share Your Thoughts:{" "}
-                  <a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSeKJnQFfbbqfaaEmm7tOH31qcc4Fj2fG436Afl3vF0EiJmmSA/viewform?usp=sharing"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 underline"
-                  >
-                    Reflexion Feedback Form
-                  </a>
-                </li>
-              </ul>
-              <div className="mt-6 text-right">
-                <Button onClick={() => setIsOpen(false)}>Close</Button>
-              </div>
-            </div>
-          </Dialog.Panel>
+                    Close
+                  </button>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
         </div>
       </Dialog>
-    </>
+    </Transition>
   );
 }

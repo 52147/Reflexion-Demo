@@ -292,15 +292,11 @@
 // export default SentimentAnalysis;
 // ✅ Added: hardcoded result for demo screenshot
 // ✅ Reflexion – Demo Mode with simple output delay
-import React, { useState } from "react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import React, { useState, Fragment } from "react";
 import AboutModal from "@/components/AboutModal";
+import { Dialog, Transition } from "@headlessui/react";
 function SentimentAnalysis() {
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [text, setText] =
     useState(`Lately, I’ve been experiencing overwhelming pressure at work. My supervisor constantly criticizes my performance, making me feel like no matter how hard I try, it’s never good enough.
     The workload is heavy and the overtime is endless, which has made me start to doubt my own abilities. I often suffer from insomnia at night and feel mentally unsettled during the day.
@@ -460,8 +456,8 @@ function SentimentAnalysis() {
         disabled={loading}
         className={`px-5 py-2 rounded font-semibold ${
           loading
-            ? "bg-gray-500 cursor-not-allowed"
-            : "bg-[#5f81b8] hover:bg-[#364153]"
+            ? "main-button cursor-not-allowed"
+            : "main-button"
         }`}
       >
         {loading ? "Analyzing..." : "Analyze"}
@@ -469,31 +465,11 @@ function SentimentAnalysis() {
       <button
         onClick={() => setDeepDiveMode(!deepDiveMode)}
         className={`mt-4 ml-4 px-5 py-2 rounded font-semibold ${
-          deepDiveMode ? "bg-[#5f81b8]" : "bg-[#364153] hover:bg-[#5f81b8]"
+          deepDiveMode ? "main-button" : "main-button"
         }`}
       >
         {deepDiveMode ? "🔍 Stop Deep Dive" : "🔍 Activate Deep Dive"}
       </button>
-      {/* <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={() => setDeepDiveMode(!deepDiveMode)}
-              className={`mt-4 ml-4 px-5 py-2 rounded font-semibold ${
-                deepDiveMode ? "bg-[#5f81b8]" : "bg-[#364153] hover:bg-[#5f81b8]"
-              }`}
-            >
-              {deepDiveMode ? "🔍 Stop Deep Dive" : "🔍 Activate Deep Dive"}
-            </button>
-          </TooltipTrigger>
-          <TooltipContent className="max-w-xs bg-yellow-900 text-white text-sm font-medium p-3 rounded shadow-md border border-yellow-500">
-            ⚠️ This mode contains critical content that challenges mainstream
-            norms, cultural assumptions, and systemic patterns of power. Proceed
-            only if you’re ready to confront difficult truths.
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider> */}
-
       {showResult && (
         <div className="mt-6 p-4 bg-gray-700 rounded-lg">
           <h3 className="text-lg font-bold text-yellow-400">
@@ -587,7 +563,7 @@ function SentimentAnalysis() {
               {questionOptions.map((question, index) => (
                 <button
                   key={index}
-                  className="w-full text-left px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded"
+                  className="main-button w-full text-left px-4 py-2 text-white rounded"
                   onClick={() => setSelectedLayer1Question(question)}
                 >
                   💡 {question}
@@ -610,7 +586,7 @@ function SentimentAnalysis() {
                 className="w-full p-3 mt-3 bg-gray-900 text-white border border-gray-600 rounded"
               />
               <button
-                className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded"
+                className="main-button mt-4 px-4 py-2  text-white rounded"
                 onClick={() => {
                   setShowSecondLayer(true);
                   setText("");
@@ -669,7 +645,7 @@ function SentimentAnalysis() {
                 {layerTwoQuestions.map((question, index) => (
                   <button
                     key={`layer2-${index}`}
-                    className="w-full text-left px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded"
+                    className="main-button w-full text-left px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded"
                     onClick={() => setSelectedLayer2Question(question)}
                   >
                     💡 {question}
@@ -693,7 +669,7 @@ function SentimentAnalysis() {
                 className="w-full p-3 mt-3 bg-gray-900 text-white border border-gray-600 rounded"
               />
               <button
-                className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded"
+                className="main-button mt-4 px-4 py-2 text-white rounded"
                 onClick={() => {
                   setShowThirdLayer(true);
                   setText("");
@@ -804,7 +780,7 @@ function SentimentAnalysis() {
                 {layerThreeQuestions.map((question, index) => (
                   <button
                     key={`layer3-${index}`}
-                    className="w-full text-left px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded"
+                    className="main-button w-full text-left px-4 py-2 text-white rounded"
                     onClick={() => setSelectedLayer3Question(question)}
                   >
                     💡 {question}
@@ -828,7 +804,7 @@ function SentimentAnalysis() {
                 className="w-full p-3 mt-3 bg-gray-900 text-white border border-gray-600 rounded"
               />
               <button
-                className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded"
+                className="mt-4 px-4 py-2 main-button text-white rounded"
                 onClick={() => {
                   setShowFourthLayer(true);
                   setText("");
@@ -951,7 +927,7 @@ function SentimentAnalysis() {
                 {layerFourQuestions.map((question, index) => (
                   <button
                     key={`layer4-${index}`}
-                    className="w-full text-left px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded"
+                    className="w-full text-left px-4 py-2 main-button text-white rounded"
                     onClick={() => setSelectedLayer4Question(question)}
                   >
                     💡 {question}
@@ -975,7 +951,7 @@ function SentimentAnalysis() {
                 className="w-full p-3 mt-3 bg-gray-900 text-white border border-gray-600 rounded"
               />
               <button
-                className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded"
+                className="mt-4 px-4 py-2 main-button text-white rounded"
                 onClick={() =>
                   alert("Deep Dive Demo Complete. Thank you for exploring!")
                 }
@@ -983,7 +959,7 @@ function SentimentAnalysis() {
                 Analyze
               </button>
               <button
-                className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded ml-4"
+                className="mt-4 px-4 py-2 main-button text-white rounded ml-4"
                 onClick={() => {
                   const link = document.createElement("a");
                   link.href = "/final-report.png"; // public 資料夾下的圖片
@@ -1005,7 +981,16 @@ function SentimentAnalysis() {
           )}
         </div>
       )}
-      <AboutModal />
+      {/* 📘 About 按鈕固定右下 */}
+      <button
+        onClick={() => setIsAboutOpen(true)}
+        className="fixed bottom-6 right-6 z-50 bg-[#364152] hover:bg-gray-600 text-white px-4 py-2 rounded shadow-md"
+      >
+        About
+      </button>
+
+      {/* AboutModal */}
+      <AboutModal isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
     </div>
   );
 }
