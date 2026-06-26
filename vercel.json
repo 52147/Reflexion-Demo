@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://www.reflexionai.dev/demo",
+      "permanent": false
+    }
+  ]
+}
