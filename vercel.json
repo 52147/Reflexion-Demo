@@ -1,7 +1,12 @@
 {
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/",
+      "destination": "https://www.reflexionai.dev/demo",
+      "permanent": false
+    },
+    {
+      "source": "/adversarial",
       "destination": "https://www.reflexionai.dev/demo",
       "permanent": false
     }
